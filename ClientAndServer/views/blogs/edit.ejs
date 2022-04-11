@@ -43,6 +43,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(data),
                 success: function(result) {
+                    // handle on success
                     if(result.status === "success") {
                         window.location.href = "/blogs";
                     }
