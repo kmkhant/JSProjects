@@ -1,0 +1,72 @@
+<html lang="en">
+    <%- include("../partials/head.ejs") %>
+    <body>
+        <%- include("../partials/nav.ejs") %> 
+        <div class="create-blog content">
+            <h2>Edit Blog</h2>
+            <div class="form-wrapper">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="<%= blog.title %>" required>
+                <label for="snippet">Snippet</label>
+                <input type="text" id="snippet" name="snippet" value="<%= blog.snippet %>" required>
+                <label for="body">Blog body:</label>
+                <textarea id="body" name="body" required><%= blog.body %></textarea>
+                <input type="hidden" data-doc="<%= blog._id %>" id="blogid">
+                <button type="submit" id="btnSubmit">Save Changes</button>
+            </div>
+        </div>
+    </body> 
+
+    <%- include("../partials/footer.ejs") %>
+    <script>
+
+        const id = $("#blogid").data("doc")
+        
+
+        $("#btnSubmit").click(function() {
+            // alert("CLICKED")
+            const title = $("#title").val();
+            const snippet = $("#snippet").val();
+            const body = $("#body").val()
+
+            const endpoint = `/blogs/edit/${id}`;
+
+            const data = {
+                title: title,
+                snippet: snippet,
+                body: body
+            }
+
+            $.ajax({
+                url: endpoint,
+                type: "PUT",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                success: function(result) {
+                    if(result.status === "success") {
+                        window.location.href = "/blogs";
+                    }
+                }
+            })
+        }) 
+        // trashcan.addEventListener('click', (e) => {
+        //     const endpoint = `/blogs/${trashcan.dataset.doc}`
+
+        //     fetch(endpoint, {
+        //         method: 'DELETE'
+        //     })
+        //     .then((response) => response.json())
+        //     .then((data) => window.location.href = data.redirect )
+        //     .catch( err => console.log(err));
+        // })
+
+        // // hover trashcan animation
+        // $("a.delete").hover(
+        //     function() {
+        //         $("a.delete").addClass("fa-bounce");
+        //     }, function() {
+        //         $("a.delete").removeClass("fa-bounce");
+        //     }
+        // )
+    </script>
+</html>
