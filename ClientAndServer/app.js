@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 // express app
 const app = express();
 
+// intentially added db credentials bcuz it's not important
 // connect to MongoDB
 const dbURI =
   "mongodb+srv://nodetuts:5nVsDS8RbYa0sLTx@nodetuts.mzbce.mongodb.net/node-tuts?retryWrites=true&w=majority";
